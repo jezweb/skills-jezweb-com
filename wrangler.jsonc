@@ -8,9 +8,12 @@
     "directory": "./dist",
     "not_found_handling": "404-page"
   },
-  "routes": [
-    { "pattern": "skills.jezweb.com", "custom_domain": true }
-  ],
+  // skills.jezweb.com lives on the Jezweb Team account (jeremy@jezweb.net), which
+  // owns the jezweb.com zone. To attach the custom domain, deploy from that account
+  // and restore this route:
+  //   "routes": [{ "pattern": "skills.jezweb.com", "custom_domain": true }]
+  // Until then we serve the workers.dev preview URL on the jez@jezweb.au account.
+  "workers_dev": true,
   "observability": {
     "enabled": true
   }
