@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /preview/
+
+Sitemap: https://jezweb.com/sitemap-index.xml
+
+# we are people: /humans.txt

@@ -1,0 +1,101 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { skillCategories, installLines } from '../../data/skills';
+
+export function getStaticPaths() {
+  return skillCategories.flatMap((cat) =>
+    cat.skills.map((s) => ({
+      params: { slug: s.slug },
+      props: { skill: s, category: cat.name, accent: cat.accent },
+    })),
+  );
+}
+
+const { skill, category, accent } = Astro.props;
+const install = installLines(skill.slug);
+const siblings = skillCategories
+  .find((c) => c.name === category)!
+  .skills.filter((s) => s.slug !== skill.slug);
+const repoHost = skill.repo.replace(/^https?:\/\//, '');
+---
+
+<Layout
+  accent={accent}
+  title={`${skill.name} — Jezweb Skills`}
+  description={skill.tagline}
+>
+  <section class="hero hero--short">
+    <div class="sky-glow"></div>
+    <div class="horizon"></div>
+    <div class="grid-floor"></div>
+    <div class="scrim"></div>
+    <div class="hero-body">
+      <p class="term">&gt; skills // {category.toLowerCase()}<span class="cursor"></span></p>
+      <h1 class="hero-title is-product mono" style="text-transform:none">{skill.name}</h1>
+      <p class="lead">{skill.tagline}</p>
+      <div class="cta-row">
+        <a href={skill.repo} class="ribbon" target="_blank" rel="noopener">View on GitHub ↗</a>
+        <a href="#install" class="ribbon ribbon-ghost">Install</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-bottom:0">
+    <div class="wrap">
+      <p class="section-label"><b>//</b> what it is</p>
+      <p class="lead" style="margin-top:14px;max-width:68ch">{skill.blurb}</p>
+      <p style="margin-top:16px;max-width:68ch;font-size:15px;line-height:1.65;color:var(--fg-soft)">
+        <span style="font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:0.08em;color:rgb(var(--c))">GOOD FOR // </span>
+        {skill.goodFor}
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="section-label"><b>//</b> how it works</p>
+      <div class="try-asking" style="margin-top:18px">
+        {skill.triggers.map((t) => <p class="ta-line">{t}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <section id="install" class="section" style="border-top:1px solid var(--line)">
+    <div class="wrap">
+      <p class="section-label"><b>//</b> install</p>
+      <p class="lead" style="margin-top:12px;max-width:62ch">
+        It is a Claude Code plugin. Add the marketplace, then install. Two lines in the Claude Code prompt:
+      </p>
+      <pre class="connect-block"><code>{install.join('\n')}</code></pre>
+      {skill.alsoCli && (
+        <p style="margin-top:14px;font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--fg-soft)">
+          also runs as a CLI: <span style="color:rgb(var(--c))">{skill.alsoCli}</span>
+        </p>
+      )}
+      <p style="margin-top:14px;font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--fg-soft)">
+        source &amp; docs: <a href={skill.repo} target="_blank" rel="noopener" style="color:rgb(var(--c));text-decoration:none">{repoHost}</a>
+      </p>
+    </div>
+  </section>
+
+  {siblings.length > 0 && (
+    <section class="section" style="border-top:1px solid var(--line);background:var(--bg-2)">
+      <div class="wrap">
+        <p class="section-label"><b>//</b> more in {category.toLowerCase()}</p>
+        <div class="paths-grid" style="margin-top:22px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">
+          {siblings.map((s) => (
+            <a class="panel" href={`/skills/${s.slug}`}>
+              <h3 class="mono" style="text-transform:none">{s.name}</h3>
+              <p>{s.tagline}</p>
+              <div class="go">open →</div>
+            </a>
+          ))}
+        </div>
+        <div class="cta-row" style="margin-top:30px">
+          <a href="/" class="ribbon ribbon-ghost">Full catalogue</a>
+          <a href="https://github.com/jezweb" class="ribbon" target="_blank" rel="noopener">All repos on GitHub ↗</a>
+        </div>
+      </div>
+    </section>
+  )}
+</Layout>

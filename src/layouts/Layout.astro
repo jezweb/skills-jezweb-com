@@ -1,0 +1,81 @@
+---
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import GridFloor from '../components/GridFloor.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Division colour world: undefined = red, 'web' = cyan, 'hosting' = amber */
+  division?: 'web' | 'hosting';
+  /** Arbitrary accent as "R, G, B" — overrides division colour for a whole page */
+  accent?: string;
+  /** OG/social share image path (default /og.png) */
+  ogImage?: string;
+  /** hidden pages — emits robots noindex */
+  noindex?: boolean;
+}
+
+const {
+  title = 'Jezweb Skills — agent skills for Claude Code',
+  description =
+    'Agent skills Jezweb builds for Claude Code: code review, comment-honesty audits, clean human decisions, on-camera bug fixes, self-demoing apps, self-improving loops, and more.',
+  division,
+  accent,
+  ogImage,
+  noindex = false,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImageUrl = new URL(ogImage ?? '/og.png', Astro.site);
+---
+
+<!doctype html>
+<!--
+  jezweb skills // a catalogue of agent skills for Claude Code.
+  hand-built in Newcastle, Australia. each skill is its own open-source repo:
+  github.com/jezweb. like building things like this? /skills, then come say hi.
+-->
+<html lang="en-AU">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#060507" />
+    <title>{title}</title>
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Jezweb Skills" />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;600;700;800&family=Share+Tech+Mono&display=swap"
+      rel="stylesheet"
+    />
+
+    <ClientRouter />
+  </head>
+  <body data-division={division} style={accent ? `--c: ${accent}; --line: rgba(var(--c), 0.22); --glow: 0 0 6px rgba(var(--c), 0.7), 0 0 18px rgba(var(--c), 0.45), 0 0 40px rgba(var(--c), 0.25)` : undefined}>
+    <GridFloor />
+    <Header />
+    <main class="page">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

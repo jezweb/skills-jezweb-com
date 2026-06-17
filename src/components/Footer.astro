@@ -1,0 +1,33 @@
+---
+import Logo from './Logo.astro';
+import { skillCategories } from '../data/skills';
+const year = new Date().getFullYear();
+---
+
+<!-- every skill here is hand-built and open source. poke around: github.com/jezweb -->
+<footer class="site-footer">
+  <div class="wrap cols">
+    <div>
+      <a href="/" aria-label="Jezweb Skills — home" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg)">
+        <Logo class="site-logo" />
+        <span class="mono" style="font-size:12px;letter-spacing:0.14em;color:rgb(var(--c));text-transform:uppercase">/ skills</span>
+      </a>
+      <p style="margin-top:16px;max-width:36ch;color:var(--fg-soft);font-size:14px;line-height:1.6">
+        Agent skills for Claude Code, built and open-sourced by Jezweb. An AI and Cloudflare product studio in Newcastle, Australia.
+      </p>
+      <p class="mono" style="margin-top:16px;font-size:13px;color:var(--fg-soft)">
+        <a href="https://github.com/jezweb" target="_blank" rel="noopener" style="color:rgb(var(--c));text-decoration:none">github.com/jezweb</a>
+      </p>
+    </div>
+    {skillCategories.map((col) => (
+      <div>
+        <h4>{col.name}</h4>
+        <ul>{col.skills.map((s) => (<li><a href={`/skills/${s.slug}`}>{s.name}</a></li>))}</ul>
+      </div>
+    ))}
+  </div>
+  <div class="wrap legal">
+    <span>© {year} Jezweb Pty Ltd · Newcastle, NSW</span>
+    <span><a href="https://jezweb.com" target="_blank" rel="noopener">Jezweb.com</a> · <a href="https://help.jezweb.com" target="_blank" rel="noopener">Help centre</a></span>
+  </div>
+</footer>

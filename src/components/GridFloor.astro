@@ -1,0 +1,35 @@
+---
+/**
+ * GridFloor — ONE global perspective grid pinned to the bottom of the viewport,
+ * behind all content, on every page. Replaces the per-hero grid (which only
+ * reached the hero's bottom edge) so the whole site sits on a continuous grid.
+ *
+ * Reuses the existing .sky-glow / .horizon / .grid-floor styles; the per-hero
+ * copies are hidden via CSS (.hero .grid-floor { display:none }). Colour follows
+ * --c and it breathes with --pulse, same as before.
+ */
+---
+
+<div class="grid-stage" aria-hidden="true">
+  <div class="sky-glow"></div>
+  <canvas class="jw-cloud" id="jwCloud"></canvas>
+  <div class="horizon" data-glitch="img"></div>
+  <div class="grid-floor"></div>
+  <canvas class="jw-road" id="jwRoad"></canvas>
+</div>
+
+<script is:inline>
+  // Scope flare on navigation — the horizon surges for half a second as the new
+  // page lands (the page-level dip lives in global.css ::view-transition rules).
+  // The stage is rebuilt on every swap, so the class lands on a fresh element.
+  if (!window.__jwFlare) {
+    window.__jwFlare = true;
+    document.addEventListener('astro:after-swap', function () {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var h = document.querySelector('.grid-stage .horizon');
+      if (!h) return;
+      h.classList.add('flaring');
+      setTimeout(function () { h.classList.remove('flaring'); }, 620);
+    });
+  }
+</script>

@@ -1,0 +1,74 @@
+---
+import Logo from './Logo.astro';
+import { skillCategories } from '../data/skills';
+const path = Astro.url.pathname;
+const isActive = (href: string) => href === '/' ? path === '/' : (path === href || path.startsWith(href + '/'));
+---
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a href="/" aria-label="Jezweb Skills — home" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg)">
+      <Logo class="site-logo" />
+      <span class="mono" style="font-size:12px;letter-spacing:0.14em;color:rgb(var(--c));text-transform:uppercase">/ skills</span>
+    </a>
+    <nav class="nav-links">
+      <a href="/" aria-current={isActive('/') ? 'page' : undefined}>Home</a>
+      {skillCategories.map((c) => (
+        <a href={`/#${c.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{c.name}</a>
+      ))}
+    </nav>
+    <div style="display:flex;align-items:center;gap:14px">
+      <a href="https://github.com/jezweb" class="ribbon ribbon-ghost hdr-cta" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://jezweb.com" class="ribbon hdr-cta" target="_blank" rel="noopener">Jezweb ↗</a>
+      <button class="hdr-menu-btn" id="jw-menubtn" type="button" aria-label="Open menu" aria-expanded="false">Menu</button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile navigation modal — full-screen overlay, Grid-styled.
+     MUST live outside .site-header: its backdrop-filter makes the header the
+     containing block for position:fixed, which would clip the modal. -->
+<div class="nav-modal" id="jw-navmodal" role="dialog" aria-modal="true" aria-label="Navigation">
+  <div class="nav-modal-head">
+    <span class="nav-modal-title">// NAVIGATION</span>
+    <button class="nav-modal-close" id="jw-navclose" type="button" aria-label="Close menu">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="nav-modal-links" aria-label="Mobile navigation">
+    <a href="/">Home</a>
+    {skillCategories.map((c) => (
+      <a href={`/#${c.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{c.name}</a>
+    ))}
+    <a href="https://github.com/jezweb" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://jezweb.com" target="_blank" rel="noopener">Jezweb.com</a>
+  </nav>
+  <a href="https://github.com/jezweb" class="ribbon nav-modal-cta" target="_blank" rel="noopener">All repos on GitHub ↗</a>
+</div>
+
+<script is:inline>
+  (function () {
+    function wire() {
+      var b = document.getElementById('jw-menubtn'), m = document.getElementById('jw-navmodal'), x = document.getElementById('jw-navclose');
+      if (!b || !m || b.__wired) return;
+      b.__wired = true;
+      function setOpen(open) {
+        m.classList.toggle('open', open);
+        b.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.documentElement.classList.toggle('nav-locked', open);
+        if (open) { var c = m.querySelector('.nav-modal-close'); if (c) c.focus(); }
+      }
+      b.addEventListener('click', function () { setOpen(!m.classList.contains('open')); });
+      x.addEventListener('click', function () { setOpen(false); });
+      m.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && m.classList.contains('open')) setOpen(false); });
+    }
+    wire();
+    document.addEventListener('astro:after-swap', wire);
+    document.addEventListener('astro:before-swap', function () {
+      var m = document.getElementById('jw-navmodal');
+      if (m) m.classList.remove('open');
+      document.documentElement.classList.remove('nav-locked');
+    });
+  })();
+</script>

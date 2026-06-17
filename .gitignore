@@ -1,0 +1,38 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# cloudflare
+.wrangler/
+.dev.vars
+
+# logs
+*.log
+npm-debug.log*
+
+# environment
+.env
+.env.local
+
+# macOS
+.DS_Store
+
+# editor
+.vscode/
+.idea/
+
+# jez artifacts — commit markdown/scripts, ignore binaries
+.jez/screenshots/
+.jez/**/*.png
+.jez/**/*.jpg
+.jez/**/*.jpeg
+.jez/**/*.mov
+.jez/**/*.mp4
+.playwright-cli/
+.jez/audio-previews/
+.jez/axigen-auth.json
+__pycache__/
+*.pyc

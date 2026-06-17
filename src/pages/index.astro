@@ -1,0 +1,67 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { skillCategories, skillCount } from '../data/skills';
+
+const anchor = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+const world = (accent: string) =>
+  `--c: ${accent}; --line: rgba(var(--c), 0.22); --glow: 0 0 6px rgba(var(--c), 0.7), 0 0 18px rgba(var(--c), 0.45), 0 0 40px rgba(var(--c), 0.25)`;
+---
+
+<Layout
+  title="Jezweb Skills — agent skills for Claude Code"
+  description={`${skillCount} agent skills Jezweb builds and open-sources for Claude Code: grounded code review, comment-honesty audits, clean human decisions, on-camera bug fixes, self-demoing apps, and self-improving loops.`}
+>
+  <section class="hero hero--short">
+    <div class="sky-glow"></div>
+    <div class="horizon"></div>
+    <!-- the whole catalogue lives in src/data/skills.ts. add a file, redeploy. -->
+    <div class="grid-floor"></div>
+    <div class="scrim"></div>
+    <div class="hero-body">
+      <p class="term">&gt; jezweb // skills for claude code<span class="cursor"></span></p>
+      <h1 class="hero-title is-product">Agent skills that<br /><span class="glow">earn their keep.</span></h1>
+      <p class="lead">
+        {skillCount} open-source skills we built for Claude Code and use every day:
+        grounded code review, docs that tell the truth, bugs caught on camera, apps
+        that demo themselves, and loops that keep improving. shipwright is the method
+        that ties them together. Each one installs in two lines and lives in its own repo.
+      </p>
+      <div class="cta-row">
+        <a href={`#${anchor(skillCategories[0].name)}`} class="ribbon">Browse the skills</a>
+        <a href="https://github.com/jezweb" class="ribbon ribbon-ghost" target="_blank" rel="noopener">All repos on GitHub ↗</a>
+      </div>
+    </div>
+  </section>
+
+  {skillCategories.map((cat) => (
+    <section class="section" id={anchor(cat.name)} style={`border-top:1px solid var(--line); ${world(cat.accent)}`}>
+      <div class="wrap">
+        <p class="section-label"><b>//</b> {cat.name.toLowerCase()} · {cat.skills.length} skills</p>
+        <h2 class="h2" style="margin-top:10px;max-width:24ch">{cat.tagline}</h2>
+        <div class="paths-grid" style="margin-top:26px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))">
+          {cat.skills.map((s) => (
+            <a class="panel" href={`/skills/${s.slug}`}>
+              <h3 class="mono" style="text-transform:none">{s.name}</h3>
+              <p>{s.tagline}</p>
+              <div class="go">open →</div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="section" style="text-align:center;border-top:1px solid var(--line);background:var(--bg-2)">
+    <div class="wrap">
+      <h2 class="h2">More skills are coming.</h2>
+      <p class="lead" style="margin:14px auto 0">
+        We build these as we hit the need for them. The catalogue grows; every skill
+        stays open source on GitHub.
+      </p>
+      <div class="cta-row" style="justify-content:center;margin-top:26px">
+        <a href="https://github.com/jezweb" class="ribbon" target="_blank" rel="noopener">Follow on GitHub ↗</a>
+        <a href="https://jezweb.com" class="ribbon ribbon-ghost" target="_blank" rel="noopener">About Jezweb ↗</a>
+      </div>
+    </div>
+  </section>
+</Layout>
