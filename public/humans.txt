@@ -1,36 +1,18 @@
-                    JEZWEB // GRID OS
+                    JEZWEB // SKILLS
 
-   you found it. humans.txt: the file that says a person made this.
-   (well, a person and an AI. more on that below. humans still steering.)
+   A catalogue of open-source agent skills for Claude Code, built by Jezweb.
+   Hand-built in Newcastle, Australia, by people working alongside an AI pair.
+   Humans still steering.
 
-   /* TEAM */
+   /* THE SITE */
+   Source     : github.com/jezweb/skills-jezweb-com
+   Built with : Astro, Cloudflare Workers static assets
+   Agents     : see /llms.txt for a machine-readable index
 
-     Studio    Jezweb
-     Founded   Newcastle, Australia, 2002
-     Steering  Jez (Jeremy Dawes), AI engineer + founder
-     Build     hand-built in conversation with Claude, live to
-               Cloudflare as we went, across many iterations
-     Say hi    help@jezweb.net  ·  1300 024 766  ·  /contact
+   /* THE SKILLS */
+   Every skill is its own repo at github.com/jezweb, installable as a
+   Claude Code plugin: /plugin marketplace add jezweb/<name>
 
-   /* WHAT IT RUNS ON */
-
-     Edge      Cloudflare Workers, static-first
-     Site      Astro 6, Tailwind v4, View Transitions
-     Voice     Cloudflare Agents + Workers AI, an ElevenLabs voice
-     Sound     20 original tracks, Google Lyria, all 117 BPM
-     Search    client-side index, press / or Cmd-K
-     Look      a love letter to TRON. the red is theirs, ours
-               arrived honestly. see /how-we-built-this
-
-   /* COLOPHON */
-
-     Every line ships unminified on purpose. The audio engine, the
-     glitch, the arcade: take what you like. Built with restraint
-     (things were made and deleted the same day) and a soundtrack.
-
-     Konami still works. ↑↑↓↓←→←→ B A
-
-   /* THANKS */
-
-     To everyone who opens devtools on a website to see how it
-     was made. You are exactly who this was built for.
+   /* SAY HI */
+   Web        : jezweb.com
+   Built more like this? We should talk.

@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
-Disallow: /preview/
 
-Sitemap: https://jezweb.com/sitemap-index.xml
+Sitemap: https://skills.jezweb.com/sitemap-index.xml
 
-# we are people: /humans.txt
+# Agents: a plain-text index of every skill (with repos + install) is at /llms.txt
+# We're people too: /humans.txt

@@ -31,7 +31,7 @@ export interface SkillCategory {
 export const skillCategories: SkillCategory[] = [
   {
     name: 'The method',
-    accent: '255, 42, 50', // red — the keystone
+    accent: '139, 92, 246', // violet — the keystone (site signature)
     tagline: 'The doctrine that runs while you use everything else.',
     skills: [
       {
@@ -138,7 +138,7 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     name: 'Keep improving',
-    accent: '255, 42, 50', // red
+    accent: '139, 92, 246', // violet
     tagline: 'Drive an app toward 10/10, and work well alongside an agent.',
     skills: [
       {

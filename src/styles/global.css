@@ -20,9 +20,10 @@
   --line: rgba(var(--c), 0.22);
   /* Glow follows the active colour (--c) so haloes match their letters everywhere */
   --glow: 0 0 6px rgba(var(--c), 0.7), 0 0 18px rgba(var(--c), 0.45), 0 0 40px rgba(var(--c), 0.25);
-  --beat: 0.5128s; /* 117 BPM — locked to the soundtrack */
-  /* Active division colour (overridden per page via [data-division]) */
-  --c: 255, 42, 50;
+  --violet: #8b5cf6;
+  /* Active accent colour (overridden per page via [data-division] or inline --c).
+     skills.jezweb.com's signature is violet, NOT jezweb.com's red — own identity. */
+  --c: 139, 92, 246;
 }
 
 /* Re-declare --glow wherever --c changes: custom props resolve var() at their
