@@ -9,11 +9,11 @@
     "not_found_handling": "404-page"
   },
   // skills.jezweb.com lives on the Jezweb Team account (jeremy@jezweb.net), which
-  // owns the jezweb.com zone. To attach the custom domain, deploy from that account
-  // and restore this route:
-  //   "routes": [{ "pattern": "skills.jezweb.com", "custom_domain": true }]
-  // Until then we serve the workers.dev preview URL on the jez@jezweb.au account.
-  "workers_dev": true,
+  // owns the jezweb.com zone. Deploy from that account:
+  //   CLOUDFLARE_ACCOUNT_ID=0460574641fdbb98159c98ebf593e2bd npx wrangler deploy
+  "routes": [
+    { "pattern": "skills.jezweb.com", "custom_domain": true }
+  ],
   "observability": {
     "enabled": true
   }
